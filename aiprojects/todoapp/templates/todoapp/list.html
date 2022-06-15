@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'todoapp/todo.css'%}">
+   <div id="myDIV" class="header">
+    <h2 style="margin: 5px">To Do 목록</h2>
+    <input type="text" id="myInput" placeholder="할일을 적어주세요." />
+    <span onclick="newElement()" class="addBtn">추가</span>
+   </div>
+<table id="customers">
+  <tr>
+    <th>번호</th>
+    <th>할일</th>
+    <th>작성일</th>
+    <th>종료일</th>
+    <th>완료</th>
+    <th>삭제</th>
+  </tr>
+  {% for todo in todo_list%}
+  <tr>
+    <td>{{todo.id}}</td>
+    <td>{{todo.todo}}</td>
+    <td>{{todo.create_date}}</td>
+    <td>{{todo.end_date |default:'진행중'}}</td>
+    <td>
+        {% if todo.authod_id == user.id %}
+            {%if todo.end_date%}
+                <a href="{% url 'todo:update' todo.id %}">완료취소</a>
+            {%else%}
+                <a href="{% url 'todo:update' todo.id %}">완료</a>
+            {%endif%}
+        {%else%}
+            <a></a>
+        {%endif%}
+    </td>
+    <td><a href="{% url 'todo:delete' todo.id %}">삭제</a></td>
+  </tr>
+  {%endfor%}
+</table>
+
+<script src="{% static 'todoapp/todo.js'%}"></script>
+{% endblock %}

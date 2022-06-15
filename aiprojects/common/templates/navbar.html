@@ -1,0 +1,16 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'navi.css'%}">
+<nav>
+  <ul>
+    <li><a href="#">home</a></li>
+    <li><a href="#">car</a></li>
+    <li><a href="{% url 'todo:list' %}">todolist</a></li>
+    <li><a href="{% url 'todo:question' %}">QnA</a></li>
+    {% if user.is_authenticated %}
+    <li class="right"><a href="{% url 'accounts:logout'%}" >{{user}}로그아웃</a></li>
+    {% else %}
+    <li class="right"><a href="{% url 'accounts:login'%}" >로그인</a></li>
+    {% endif%}
+
+  </ul>
+</nav>

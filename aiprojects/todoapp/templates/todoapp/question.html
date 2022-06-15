@@ -1,0 +1,11 @@
+<h1>{{question.subject}}</h1>
+<div>
+    {{question.content}}
+</div>
+
+<form action="{% url 'todo:answer_create' question.id %}" method="post">
+{% csrf_token %}
+<textarea name="content" id="content" row="15"></textarea>
+<input type="submit" value="댓글!">
+</form>
+
